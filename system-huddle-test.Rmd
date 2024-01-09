@@ -253,16 +253,7 @@ scale_fill_MountSinai <- function(palette = "all", discrete = TRUE, reverse = FA
 inc_sites <- c("NETWORK","MSM","MSH-MSDFP","MSW","MSBI","MSUS","MSH- AMBULATORY CARE","MSDMG","MSQ","MSSN")
 
 
-# scheduling_data_raw <- as.data.frame(readRDS("/nfs/data/Applications/Ambulatory/Data_Updated/historical_data.rds")) %>%
-#   mutate(Campus = case_when(Campus == "MSDD" ~ "MSDMG",
-#                             TRUE ~ Campus),
-#          Campus = case_when(Department %in% c("1176 5TH DUBIN MED ONC", "1176 5TH DUBIN SURG ONC") ~ "DUBIN",
-#                             Department %in% c("1468 MADISON CANCER", "1470 MADISON CANCER CENTER", "10 E 102ND ST INFUSION WHITE BAG", "THERAPEUTIC INF") ~ "RTC",
-#                             TRUE ~ Campus)) %>%
-#   filter(!is.na(Campus)) %>%
-#   filter(Campus %in% inc_sites)
-
-scheduling_data_raw <- as.data.frame(readRDS(file.choose())) %>%
+scheduling_data_raw <- as.data.frame(readRDS("/nfs/data/Applications/Ambulatory/Data_Updated/historical_data.rds")) %>%
   mutate(Campus = case_when(Campus == "MSDD" ~ "MSDMG",
                             TRUE ~ Campus),
          Campus = case_when(Department %in% c("1176 5TH DUBIN MED ONC", "1176 5TH DUBIN SURG ONC") ~ "DUBIN",
@@ -270,6 +261,15 @@ scheduling_data_raw <- as.data.frame(readRDS(file.choose())) %>%
                             TRUE ~ Campus)) %>%
   filter(!is.na(Campus)) %>%
   filter(Campus %in% inc_sites)
+
+# scheduling_data_raw <- as.data.frame(readRDS(file.choose())) %>%
+#   mutate(Campus = case_when(Campus == "MSDD" ~ "MSDMG",
+#                             TRUE ~ Campus),
+#          Campus = case_when(Department %in% c("1176 5TH DUBIN MED ONC", "1176 5TH DUBIN SURG ONC") ~ "DUBIN",
+#                             Department %in% c("1468 MADISON CANCER", "1470 MADISON CANCER CENTER", "10 E 102ND ST INFUSION WHITE BAG", "THERAPEUTIC INF") ~ "RTC",
+#                             TRUE ~ Campus)) %>%
+#   filter(!is.na(Campus)) %>%
+#   filter(Campus %in% inc_sites)
 
 date_start <- as.Date("2023-01-01", format="%Y-%m-%d")
 date_end <- as.Date(max(scheduling_data_raw$Appt.Made.DTTM), format="%Y-%m-%d")
